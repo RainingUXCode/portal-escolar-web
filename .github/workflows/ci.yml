@@ -1,0 +1,140 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - "**"
+  pull_request:
+    branches:
+      - "**"
+  workflow_dispatch: {}
+
+jobs:
+  phpunit:
+    name: PHPUnit CI
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: projeto
+        ports:
+          - 3306:3306
+        options: >
+          --health-cmd="mysqladmin ping --silent"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+    env:
+      DB_HOST: 127.0.0.1
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASS: root
+      DB_NAME: projeto
+      BASE_URL: http://127.0.0.1:8000
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v4
+        with:
+          php-version: "8.2"
+          extensions: mbstring, curl, mysqli, xml
+          coverage: none
+
+      - name: Install Composer dependencies
+        run: composer install --prefer-dist --no-progress --no-suggest
+
+      - name: Set up database schema
+        run: |
+          composer global require "phpunit/phpunit:^9.6" || true
+          until mysql -h 127.0.0.1 -P 3306 -u root -proot -e 'SELECT 1'; do sleep 5; done
+          mysql -h 127.0.0.1 -P 3306 -u root -proot -e "CREATE DATABASE IF NOT EXISTS projeto CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+          mysql -h 127.0.0.1 -P 3306 -u root -proot projeto -e "CREATE TABLE IF NOT EXISTS usuarios (id INT AUTO_INCREMENT PRIMARY KEY, nome VARCHAR(255) NOT NULL, email VARCHAR(255) NOT NULL UNIQUE, senha VARCHAR(255) NOT NULL, matricula VARCHAR(50) NOT NULL, data_nascimento DATE NOT NULL, endereco VARCHAR(255) NOT NULL, nivel_acesso VARCHAR(50) NOT NULL);"
+
+      - name: Start PHP built-in server
+        run: |
+          nohup php -S 127.0.0.1:8000 >/tmp/php-server.log 2>&1 &
+          echo $! > /tmp/php-server.pid
+          sleep 3
+
+      - name: Run PHPUnit tests
+        run: vendor/bin/phpunit -c phpunit.xml --log-junit test-results/phpunit.xml
+
+      - name: Upload PHPUnit report
+        uses: actions/upload-artifact@v4
+        with:
+          name: phpunit-report
+          path: test-results/phpunit.xml
+
+  playwright:
+    name: Playwright CI
+    runs-on: ubuntu-latest
+    needs: phpunit
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: projeto
+        ports:
+          - 3306:3306
+        options: >
+          --health-cmd="mysqladmin ping --silent"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+    env:
+      DB_HOST: 127.0.0.1
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASS: root
+      DB_NAME: projeto
+      BASE_URL: http://127.0.0.1:8000
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install Node dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v4
+        with:
+          php-version: "8.2"
+          extensions: mbstring, curl, mysqli, xml
+          coverage: none
+
+      - name: Install Composer dependencies
+        run: composer install --prefer-dist --no-progress --no-suggest
+
+      - name: Set up database schema
+        run: |
+          until mysql -h 127.0.0.1 -P 3306 -u root -proot -e 'SELECT 1'; do sleep 5; done
+          mysql -h 127.0.0.1 -P 3306 -u root -proot -e "CREATE DATABASE IF NOT EXISTS projeto CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+          mysql -h 127.0.0.1 -P 3306 -u root -proot projeto -e "CREATE TABLE IF NOT EXISTS usuarios (id INT AUTO_INCREMENT PRIMARY KEY, nome VARCHAR(255) NOT NULL, email VARCHAR(255) NOT NULL UNIQUE, senha VARCHAR(255) NOT NULL, matricula VARCHAR(50) NOT NULL, data_nascimento DATE NOT NULL, endereco VARCHAR(255) NOT NULL, nivel_acesso VARCHAR(50) NOT NULL);"
+
+      - name: Start PHP built-in server
+        run: |
+          nohup php -S 127.0.0.1:8000 >/tmp/php-server.log 2>&1 &
+          echo $! > /tmp/php-server.pid
+          sleep 3
+
+      - name: Run Playwright tests
+        run: npx playwright test --reporter=list,junit=test-results/playwright-junit.xml
+
+      - name: Upload Playwright report
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: test-results/playwright-junit.xml

@@ -1,0 +1,19 @@
+{
+  "name": "portal-simple",
+  "version": "1.0.0",
+  "description": "Este projeto é desenvolvido como parte das aulas de **Programação Web** e simula um portal web para uma instituição de ensino fictícia, permitindo a **autenticação** de alunos, administradores e participação em **enquetes** com resultados em tempo real.",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx playwright test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "playwright": "^1.60.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.60.0"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "portal-simple/php-tests",
+  "description": "PHPUnit tests for portal-simple",
+  "require-dev": {
+    "phpunit/phpunit": "^9.6"
+  },
+  "autoload": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  }
+}
