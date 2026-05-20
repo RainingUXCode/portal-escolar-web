@@ -131,7 +131,11 @@ jobs:
           sleep 3
 
       - name: Run Playwright tests
-        run: npx playwright test --reporter=list,junit=test-results/playwright-junit.xml
+        env:
+          PLAYWRIGHT_JUNIT_OUTPUT_FILE: test-results/playwright-junit.xml
+        run: |
+          mkdir -p test-results
+          npx playwright test --reporter=list --reporter=junit
 
       - name: Upload Playwright report
         uses: actions/upload-artifact@v4
