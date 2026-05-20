@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/BaseTestCase.php';
 
-use BaseTestCase;
-
 /**
  * @extends \BaseTestCase
  * @coversNothing
@@ -45,7 +43,7 @@ class AuthTest extends \BaseTestCase
 
   private function deleteTestUser(string $email): void
   {
-    require __DIR__ . '/../includes/conexao.php';
+    require __DIR__ . '/../app/includes/conexao.php';
     $emailEsc = $conn->real_escape_string($email);
     $conn->query("DELETE FROM usuarios WHERE email = '{$emailEsc}'");
   }

@@ -34,8 +34,14 @@ $create_enquetes_table = "CREATE TABLE IF NOT EXISTS enquetes (
 $conn->query($create_enquetes_table);
 
 // Adicionar colunas se não existirem (para compatibilidade com enquetes existentes)
-$conn->query("ALTER TABLE enquetes ADD COLUMN IF NOT EXISTS destaque TINYINT(1) DEFAULT 0");
-$conn->query("ALTER TABLE enquetes ADD COLUMN IF NOT EXISTS ativa TINYINT(1) DEFAULT 1");
+$columnCheck = $conn->query("SHOW COLUMNS FROM enquetes LIKE 'destaque'");
+if ($columnCheck && $columnCheck->num_rows === 0) {
+    $conn->query("ALTER TABLE enquetes ADD COLUMN destaque TINYINT(1) DEFAULT 0");
+}
+$columnCheck = $conn->query("SHOW COLUMNS FROM enquetes LIKE 'ativa'");
+if ($columnCheck && $columnCheck->num_rows === 0) {
+    $conn->query("ALTER TABLE enquetes ADD COLUMN ativa TINYINT(1) DEFAULT 1");
+}
 
 $create_opcoes_enquete_table = "CREATE TABLE IF NOT EXISTS opcoes_enquete (
     id INT AUTO_INCREMENT PRIMARY KEY,
