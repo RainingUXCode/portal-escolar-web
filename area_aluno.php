@@ -1,6 +1,8 @@
 <?php
-require_once 'includes/funcoes.php';
-require_once 'includes/conexao.php';
+require_once 'app/includes/funcoes.php';
+require_once 'app/includes/conexao.php';
+
+$noticias_fixas = obter_noticias_fixas();
 
 proteger_pagina(['aluno']);
 
@@ -130,7 +132,7 @@ foreach ($enquetes_temp as $enquete_id => $enquete) {
         <!-- Logo e Nome da Escola -->
         <a href="index.php" class="flex items-center gap-3">
           <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center p-2">
-            <img class="w-full h-full object-contain" src="img/dove.png">
+            <img class="w-full h-full object-contain" src="assets/img/dove.png">
           </div>
           <div>
             <h1 class="text-xl font-regular text-gray-800">Colégio Esperança</h1>
@@ -145,11 +147,11 @@ foreach ($enquetes_temp as $enquete_id => $enquete) {
           <a href="biblioteca.php" class="px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-gray-100 rounded-lg">Biblioteca</a>
           <span class="text-gray-400 mx-1">|</span>
           <a href="perfil_aluno.php" class="flex items-center gap-1.5 text-gray-700 hover:bg-gray-100 px-4 py-2 rounded-md text-sm font-semibold ml-2">
-            <img class="w-4 h-4" src="img/usuario.svg">
+            <img class="w-4 h-4" src="assets/img/usuario.svg">
             Perfil
           </a>
           <a href="index.php" class="text-gray-800 hover:bg-gray-100 px-4 py-2 rounded-md text-sm font-semibold flex items-center gap-1.5 bg-white backdrop-blur-sm rounded-lg border border-gray-200">
-            <img class="w-4 h-4" src="img/sair.svg">
+            <img class="w-4 h-4" src="assets/img/sair.svg">
             Sair
           </a>
         </div>
@@ -157,7 +159,7 @@ foreach ($enquetes_temp as $enquete_id => $enquete) {
         <!-- Menu Mobile (Ícone) -->
         <div class="md:hidden">
           <button id="menu-toggle" class="text-gray-800">
-            <img class="w-11 h-11 object-contain p-2" src="img/toggle.png">
+            <img class="w-11 h-11 object-contain p-2" src="assets/img/toggle.png">
           </button>
         </div>
       </div>
@@ -189,7 +191,7 @@ foreach ($enquetes_temp as $enquete_id => $enquete) {
 
         <div class="flex items-start gap-3 mb-4">
           <div class="w-10 h-10 bg-white/30 rounded-lg flex items-center justify-center flex-shrink-0">
-            <img class="w-6 h-6" src="img/enquete.svg">
+            <img class="w-6 h-6" src="assets/img/enquete.svg">
           </div>
           <div>
             <span class="text-lg font-regular block">Enquete em Destaque ✨</span>
@@ -204,7 +206,7 @@ foreach ($enquetes_temp as $enquete_id => $enquete) {
 
         <div class="bg-white text-gray-900 p-6 rounded-lg shadow-md relative z-10">
 
-          <form id="form-destaque-<?php echo $destaque['id']; ?>" method="POST" action="processa/processa_voto.php">
+          <form id="form-destaque-<?php echo $destaque['id']; ?>" method="POST" action="app/processa/processa_voto.php">
             <input type="hidden" name="enquete_id" value="<?php echo $destaque['id']; ?>">
             <input type="hidden" name="opcao_id" id="opcao-selecionada-<?php echo $destaque['id']; ?>" value="">
 
@@ -270,41 +272,7 @@ foreach ($enquetes_temp as $enquete_id => $enquete) {
           <a href="noticias.php" class="px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-gray-200 rounded">Ver todas</a>
         </div>
         <div class="space-y-6">
-          <?php
-          $sql_noticias = "SELECT id, titulo, autor, conteudo, imagem_url, data_publicacao FROM noticias ORDER BY data_publicacao DESC LIMIT 3";
-          $result_noticias = $conn->query($sql_noticias);
-          if ($result_noticias && $result_noticias->num_rows > 0):
-            while ($noticia = $result_noticias->fetch_assoc()):
-          ?>
-              <div class="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
-                <?php if (!empty($noticia['imagem_url'])): ?>
-                  <img class="w-full h-80 object-cover" src="<?php echo htmlspecialchars($noticia['imagem_url']); ?>" alt="<?php echo htmlspecialchars($noticia['titulo']); ?>">
-                <?php else: ?>
-                  <div class="w-full h-80 bg-gray-100 flex items-center justify-center text-gray-500">Sem imagem</div>
-                <?php endif; ?>
-                <div class="p-6 flex flex-col flex-grow">
-                  <h3 class="text-xl text-gray-900"><?php echo htmlspecialchars($noticia['titulo']); ?></h3>
-                  <div class="flex gap-4 text-sm text-gray-500 mt-2">
-                    <span class="flex items-center gap-1.5">
-                      <img class="w-4 h-4" src="img/calendar.svg">
-                      <?php echo date('d/m/Y', strtotime($noticia['data_publicacao'])); ?>
-                    </span>
-                    <span class="flex items-center gap-1.5">
-                      <img class="w-4 h-4" src="img/pessoa.svg">
-                      <?php echo htmlspecialchars($noticia['autor']); ?>
-                    </span>
-                  </div>
-                  <p class="mt-4 text-gray-600 flex-grow"><?php echo nl2br(htmlspecialchars(mb_strlen($noticia['conteudo']) > 200 ? mb_substr($noticia['conteudo'], 0, 200) . '...' : $noticia['conteudo'])); ?></p>
-                </div>
-              </div>
-            <?php
-            endwhile;
-          else:
-            ?>
-            <div class="bg-white rounded-xl border border-gray-200 p-6 text-gray-600 text-center">
-              Nenhuma notícia encontrada.
-            </div>
-          <?php endif; ?>
+          <?php echo render_noticias_fixas_cards($noticias_fixas); ?>
         </div>
       </div>
 
@@ -317,7 +285,7 @@ foreach ($enquetes_temp as $enquete_id => $enquete) {
 
             <div class="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
               <div class="flex items-start gap-3 mb-3">
-                <img class="w-6 h-6" src="img/voto.svg">
+                <img class="w-6 h-6" src="assets/img/voto.svg">
                 <div>
                   <h3 class="text-base font-semibold text-gray-800"><?php echo $enquete['pergunta']; ?></h3>
                   <p class="text-sm text-gray-500 mt-1">Votação aberta</p>
@@ -354,7 +322,7 @@ foreach ($enquetes_temp as $enquete_id => $enquete) {
                 </button>
 
               <?php else: ?>
-                <form id="form-normal-<?php echo $enquete['id']; ?>" method="POST" action="processa/processa_voto.php">
+                <form id="form-normal-<?php echo $enquete['id']; ?>" method="POST" action="app/processa/processa_voto.php">
                   <input type="hidden" name="enquete_id" value="<?php echo $enquete['id']; ?>">
                   <input type="hidden" name="opcao_id" id="opcao-selecionada-normal-<?php echo $enquete['id']; ?>" value="">
 
@@ -390,7 +358,7 @@ foreach ($enquetes_temp as $enquete_id => $enquete) {
         <h2 class="text-2xl font-regular text-gray-900 mt-12">Aniversariantes do Mês</h2>
         <div class="bg-white rounded-xl border border-gray-200 p-6 shadow-sm mt-6">
           <div class="flex items-start gap-3 mb-3">
-            <img class="w-6 h-6" src="img/birthday-cake.png">
+            <img class="w-6 h-6" src="assets/img/birthday-cake.png">
             <div>
               <h3 class="text-lg font-semibold text-gray-800 mb-4">Próximos aniversários:</h3>
             </div>

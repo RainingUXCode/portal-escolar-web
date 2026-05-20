@@ -23,12 +23,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $_SESSION['usuario_tipo'] = $usuario['nivel_acesso'];
 
     if ($usuario['nivel_acesso'] == 'admin') {
-      header("Location: ../area_admin.php");
+      header("Location: ../../area_admin.php");
     } else {
-      header("Location: ../area_aluno.php");
+      header("Location: ../../area_aluno.php");
     }
     exit();
   } else {
-    redirecionar('../login.php', 'erro', 'Login falhou. E-mail ou senha inválidos!');
+    redirecionar('../../login.php', 'erro', 'Login falhou. E-mail ou senha inválidos!');
   }
 }

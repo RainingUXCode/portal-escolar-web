@@ -1,5 +1,5 @@
 <?php
-require_once 'includes/funcoes.php';
+require_once 'app/includes/funcoes.php';
 ?>
 
 <!DOCTYPE html>
@@ -24,7 +24,7 @@ require_once 'includes/funcoes.php';
   <div class="w-full max-w-md">
     <!-- Botão Voltar -->
     <a href="index.php" class="inline-flex items-center gap-3 text-sm font-semibold text-gray-700 hover:text-gray-900 mb-4 bg-white backdrop-blur-sm px-3 py-2 rounded-lg border border-gray-200">
-      <img class="w-4 h-4" src="img/voltar.svg">
+      <img class="w-4 h-4" src="assets/img/voltar.svg">
       Voltar
     </a>
 
@@ -32,14 +32,14 @@ require_once 'includes/funcoes.php';
     <div class="bg-white border border-gray-200 rounded-xl shadow-lg p-8 w-full">
       <div class="flex flex-col items-center mb-6">
         <div class="w-14 h-14 bg-blue-600 rounded-full flex items-center justify-center mb-4">
-          <img class="w-12 h-12 object-contain p-2" src="img/dove.png">
+          <img class="w-12 h-12 object-contain p-2" src="assets/img/dove.png">
         </div>
         <h2 class="text-xl font-semibold text-gray-900">Login do Portal</h2>
         <p class="text-gray-500 mt-1">Acesse sua conta para continuar</p>
       </div>
 
       <!-- Formulário -->
-      <form action="processa/processa_login.php" method="POST" class="space-y-4">
+      <form action="app/processa/processa_login.php" method="POST" class="space-y-4">
         <!-- Campo Email -->
         <div>
           <label for="email" class="block text-sm font-medium text-gray-700 mb-1">E-mail:</label>

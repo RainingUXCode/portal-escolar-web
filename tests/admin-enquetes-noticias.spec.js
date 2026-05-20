@@ -13,7 +13,7 @@ async function loginAs(page, email, senha) {
 }
 
 async function logout(page) {
-  await page.goto(`${BASE_URL}/processa/processa_logout.php`);
+  await page.goto(`${BASE_URL}/app/processa/processa_logout.php`);
   await expect(page).toHaveURL(/index.php/);
 }
 
@@ -171,3 +171,4 @@ test.describe.serial("Admin painel e enquetes", () => {
     await deletePoll(page, enquetePergunta);
   });
 });
+

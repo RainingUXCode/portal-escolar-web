@@ -1,7 +1,7 @@
 <?php
 
-require_once 'includes/funcoes.php';
-require_once 'includes/conexao.php';
+require_once 'app/includes/funcoes.php';
+require_once 'app/includes/conexao.php';
 
 $admin_data = null;
 $enquetes_destaque = [];
@@ -161,7 +161,7 @@ $conn->close();
         <!-- Logo e Nome da Escola -->
         <a href="index.php" class="flex items-center gap-3">
           <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center p-2">
-            <img class="w-full h-full object-contain" src="img/dove.png">
+            <img class="w-full h-full object-contain" src="assets/img/dove.png">
           </div>
           <div>
             <h1 class="text-xl font-regular text-gray-800">Colégio Esperança</h1>
@@ -176,11 +176,11 @@ $conn->close();
           <a href="biblioteca.php" class="px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-gray-100 rounded-lg">Biblioteca</a>
           <span class="text-gray-400 mx-1">|</span>
           <a href="painel_admin.php" class="flex items-center gap-1.5 text-gray-700 hover:bg-gray-100 px-4 py-2 rounded-md text-sm font-semibold ml-2">
-            <img class="w-4 h-4" src="img/usuario.svg">
+            <img class="w-4 h-4" src="assets/img/usuario.svg">
             Admin
           </a>
           <a href="index.php" class="text-gray-800 hover:bg-gray-100 px-4 py-2 rounded-md text-sm font-semibold flex items-center gap-1.5 bg-white backdrop-blur-sm rounded-lg border border-gray-200">
-            <img class="w-4 h-4" src="img/sair.svg">
+            <img class="w-4 h-4" src="assets/img/sair.svg">
             Sair
           </a>
         </div>
@@ -188,7 +188,7 @@ $conn->close();
         <!-- Menu Mobile (Ícone) -->
         <div class="md:hidden">
           <button id="menu-toggle" class="text-gray-800">
-            <img class="w-11 h-11 object-contain p-2" src="img/toggle.png">
+            <img class="w-11 h-11 object-contain p-2" src="assets/img/toggle.png">
           </button>
         </div>
       </div>
@@ -221,7 +221,7 @@ $conn->close();
 
         <div class="flex items-start gap-3 mb-4">
           <div class="w-10 h-10 bg-white/30 rounded-lg flex items-center justify-center flex-shrink-0">
-            <img class="w-6 h-6" src="img/enquete.svg">
+            <img class="w-6 h-6" src="assets/img/enquete.svg">
           </div>
           <div>
             <span class="text-lg font-regular block">Enquete em Destaque ✨</span>
@@ -280,16 +280,16 @@ $conn->close();
         <div class="space-y-6">
           <!-- Notícia 1 -->
           <div class="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
-            <img class="w-full h-80 object-cover" src="img/ciencias.jpg">
+            <img class="w-full h-80 object-cover" src="assets/img/ciencias.jpg">
             <div class="p-6 flex flex-col flex-grow">
               <h3 class="text-xl text-gray-900">Feira de Ciências 2025 - Inscrições Abertas</h3>
               <div class="flex gap-4 text-sm text-gray-500 mt-2">
                 <span class="flex items-center gap-1.5">
-                  <img class="w-4 h-4" src="img/calendar.svg">
+                  <img class="w-4 h-4" src="assets/img/calendar.svg">
                   25 de Novembro de 2025
                 </span>
                 <span class="flex items-center gap-1.5">
-                  <img class="w-4 h-4" src="img/pessoa.svg">
+                  <img class="w-4 h-4" src="assets/img/pessoa.svg">
                   Coordenação Esperança
                 </span>
               </div>
@@ -298,16 +298,16 @@ $conn->close();
           </div>
           <!-- Notícia 2 -->
           <div class="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
-            <img src="img/esporte.jpg" class="w-full h-80 object-cover">
+            <img src="assets/img/esporte.jpg" class="w-full h-80 object-cover">
             <div class="p-6 flex flex-col flex-grow">
               <h3 class="text-xl text-gray-900">Torneio Esportivo Inter-Classes</h3>
               <div class="flex gap-4 text-sm text-gray-500 mt-2">
                 <span class="flex items-center gap-1.5">
-                  <img class="w-4 h-4" src="img/calendar.svg">
+                  <img class="w-4 h-4" src="assets/img/calendar.svg">
                   13 de Outubro de 2025
                 </span>
                 <span class="flex items-center gap-1.5">
-                  <img class="w-4 h-4" src="img/pessoa.svg">
+                  <img class="w-4 h-4" src="assets/img/pessoa.svg">
                   Professor Allyson
                 </span>
               </div>
@@ -316,16 +316,16 @@ $conn->close();
           </div>
           <!-- Notícia 3 -->
           <div class="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
-            <img src="img/estudos.jpg" class="w-full h-80 object-cover">
+            <img src="assets/img/estudos.jpg" class="w-full h-80 object-cover">
             <div class="p-6 flex flex-col flex-grow">
               <h3 class="text-xl text-gray-900">Dicas de Estudo: Como se preparar para as Provas</h3>
               <div class="flex gap-4 text-sm text-gray-500 mt-2">
                 <span class="flex items-center gap-1.5">
-                  <img class="w-4 h-4" src="img/calendar.svg">
+                  <img class="w-4 h-4" src="assets/img/calendar.svg">
                   09 de Setembro de 2025
                 </span>
                 <span class="flex items-center gap-1.5">
-                  <img class="w-4 h-4" src="img/pessoa.svg">
+                  <img class="w-4 h-4" src="assets/img/pessoa.svg">
                   Professora Carolina
                 </span>
               </div>
@@ -343,7 +343,7 @@ $conn->close();
 
             <div class="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
               <div class="flex items-start gap-3 mb-3">
-                <img class="w-6 h-6" src="img/voto.svg">
+                <img class="w-6 h-6" src="assets/img/voto.svg">
                 <div>
                   <h3 class="text-base font-semibold text-gray-800"><?php echo htmlspecialchars($enquete['pergunta']); ?></h3>
                   <p class="text-sm text-gray-500 mt-1">Criado em: <?php echo date('d/m/Y', strtotime($enquete['data_criacao'])); ?></p>
@@ -383,7 +383,7 @@ $conn->close();
         <h2 class="text-2xl font-regular text-gray-900 mt-12">Aniversariantes do Mês</h2>
         <div class="bg-white rounded-xl border border-gray-200 p-6 shadow-sm mt-6">
           <div class="flex items-start gap-3 mb-3">
-            <img class="w-6 h-6" src="img/birthday-cake.png">
+            <img class="w-6 h-6" src="assets/img/birthday-cake.png">
             <div>
               <h3 class="text-lg font-semibold text-gray-800 mb-4">Próximos aniversários:</h3>
             </div>

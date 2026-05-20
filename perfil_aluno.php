@@ -1,8 +1,9 @@
 <?php
-require_once 'includes/funcoes.php';
-require_once 'includes/conexao.php';
+require_once 'app/includes/funcoes.php';
+require_once 'app/includes/conexao.php';
 
 $aluno_data = null;
+$noticias_fixas = obter_noticias_fixas();
 
 proteger_pagina(['aluno']);
 
@@ -48,7 +49,7 @@ $conn->close();
     <div class="w-full max-w-2xl">
         <!-- Botão Voltar -->
         <a href="area_aluno.php" class="inline-flex items-center gap-3 text-sm font-semibold text-gray-700 hover:text-gray-900 mb-4 bg-white backdrop-blur-sm px-3 py-2 rounded-lg border border-gray-200">
-            <img class="w-4 h-4" src="img/voltar.svg">
+            <img class="w-4 h-4" src="assets/img/voltar.svg">
             Voltar
         </a>
 
@@ -73,7 +74,7 @@ $conn->close();
 
                 <!-- Email -->
                 <div class="bg-gray-100 p-4 rounded-lg flex items-center gap-4">
-                    <img class="w-5 h-5" src="img/email.svg">
+                    <img class="w-5 h-5" src="assets/img/email.svg">
                     <div>
                         <p class="text-sm text-gray-600">E-mail:</p>
                         <p class="text-base font-medium text-gray-900">
@@ -84,7 +85,7 @@ $conn->close();
 
                 <!-- Nome -->
                 <div class="bg-gray-100 p-4 rounded-lg flex items-center gap-4">
-                    <img class="w-5 h-5" src="img/nome.svg">
+                    <img class="w-5 h-5" src="assets/img/nome.svg">
                     <div>
                         <p class="text-sm text-gray-600">Nome:</p>
                         <p class="text-base font-medium text-gray-900">
@@ -95,7 +96,7 @@ $conn->close();
 
                 <!-- Matrícula -->
                 <div class="bg-gray-100 p-4 rounded-lg flex items-center gap-4">
-                    <img class="w-5 h-5" src="img/matricula.svg">
+                    <img class="w-5 h-5" src="assets/img/matricula.svg">
                     <div>
                         <p class="text-sm text-gray-600">Matricula:</p>
                         <p class="text-base font-medium text-gray-900">
@@ -106,7 +107,7 @@ $conn->close();
 
                 <!-- Data de Nascimento -->
                 <div class="bg-gray-100 p-4 rounded-lg flex items-center gap-4">
-                    <img class="w-5 h-5" src="img/data.svg">
+                    <img class="w-5 h-5" src="assets/img/data.svg">
                     <div>
                         <p class="text-sm text-gray-600">Data de Nascimento:</p>
                         <p class="text-base font-medium text-gray-900">
@@ -117,7 +118,7 @@ $conn->close();
 
                 <!-- Endereço -->
                 <div class="bg-gray-100 p-4 rounded-lg flex items-center gap-4">
-                    <img class="w-5 h-5" src="img/endereco.svg">
+                    <img class="w-5 h-5" src="assets/img/endereco.svg">
                     <div>
                         <p class="text-sm text-gray-600">Endereço:</p>
                         <p class="text-base font-medium text-gray-900">
@@ -128,7 +129,7 @@ $conn->close();
 
                 <!-- Tipo de conta -->
                 <div class="bg-gray-100 p-4 rounded-lg flex items-center gap-3">
-                    <img class="w-5 h-5" src="img/conta.svg">
+                    <img class="w-5 h-5" src="assets/img/conta.svg">
                     <p class="text-md font-medium text-gray-600">Tipo de conta:</p>
                     <span class="text-xs bg-gray-900 text-white font-semibold px-2 py-1 rounded-md">Estudante</span>
                 </div>
@@ -144,6 +145,18 @@ $conn->close();
         </div>
     </div>
 
+    <div class="w-full max-w-2xl mt-10">
+        <div class="bg-white border border-gray-200 rounded-xl shadow-lg p-6 md:p-8">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-regular text-gray-900">Últimas Notícias</h2>
+                <a href="noticias.php" class="px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-gray-200 rounded">Ver todas</a>
+            </div>
+            <div class="space-y-6">
+                <?php echo render_noticias_fixas_cards($noticias_fixas); ?>
+            </div>
+        </div>
+    </div>
+
     <!-- Modal de Seleção de Avatar -->
     <div id="avatar-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 hidden">
         <div class="bg-white rounded-xl shadow-xl w-full max-w-md">
@@ -151,24 +164,24 @@ $conn->close();
             <div class="flex justify-between items-center p-4 border-b border-gray-200">
                 <h3 class="text-lg font-semibold text-gray-900">Escolha seu avatar</h3>
                 <button id="close-modal-btn" class="text-gray-400 hover:text-gray-600">
-                    <img class="w-4 h-4" src="img/fechar.png">
+                    <img class="w-4 h-4" src="assets/img/fechar.png">
                 </button>
             </div>
             <!-- Grelha de Avatares -->
             <div id="avatar-selection-grid" class="p-6 grid grid-cols-4 gap-4">
                 <!-- Avatares -->
-                <img src="perfil/Cachorro.jpg" class="avatar-choice w-full rounded-full cursor-pointer hover:opacity-75 transition-all duration-200">
-                <img src="perfil/Gato.png" class="avatar-choice w-full rounded-full cursor-pointer hover:opacity-75 transition-all duration-200">
-                <img src="perfil/Flores.png" class="avatar-choice w-full rounded-full cursor-pointer hover:opacity-75 transition-all duration-200">
-                <img src="perfil/Esporte.png" class="avatar-choice w-full rounded-full cursor-pointer hover:opacity-75 transition-all duration-200">
-                <img src="perfil/Garota1.png" class="avatar-choice w-full rounded-full cursor-pointer hover:opacity-75 transition-all duration-200">
-                <img src="perfil/Garota2.png" class="avatar-choice w-full rounded-full cursor-pointer hover:opacity-75 transition-all duration-200">
-                <img src="perfil/Garota3.png" class="avatar-choice w-full rounded-full cursor-pointer hover:opacity-75 transition-all duration-200">
-                <img src="perfil/Garota4.png" class="avatar-choice w-full rounded-full cursor-pointer hover:opacity-75 transition-all duration-200">
-                <img src="perfil/Garoto1.png" class="avatar-choice w-full rounded-full cursor-pointer hover:opacity-75 transition-all duration-200">
-                <img src="perfil/Garoto2.png" class="avatar-choice w-full rounded-full cursor-pointer hover:opacity-75 transition-all duration-200">
-                <img src="perfil/Garoto3.png" class="avatar-choice w-full rounded-full cursor-pointer hover:opacity-75 transition-all duration-200">
-                <img src="perfil/Garoto4.png" class="avatar-choice w-full rounded-full cursor-pointer hover:opacity-75 transition-all duration-200">
+                <img src="assets/perfil/Cachorro.jpg" class="avatar-choice w-full rounded-full cursor-pointer hover:opacity-75 transition-all duration-200">
+                <img src="assets/perfil/Gato.png" class="avatar-choice w-full rounded-full cursor-pointer hover:opacity-75 transition-all duration-200">
+                <img src="assets/perfil/Flores.png" class="avatar-choice w-full rounded-full cursor-pointer hover:opacity-75 transition-all duration-200">
+                <img src="assets/perfil/Esporte.png" class="avatar-choice w-full rounded-full cursor-pointer hover:opacity-75 transition-all duration-200">
+                <img src="assets/perfil/Garota1.png" class="avatar-choice w-full rounded-full cursor-pointer hover:opacity-75 transition-all duration-200">
+                <img src="assets/perfil/Garota2.png" class="avatar-choice w-full rounded-full cursor-pointer hover:opacity-75 transition-all duration-200">
+                <img src="assets/perfil/Garota3.png" class="avatar-choice w-full rounded-full cursor-pointer hover:opacity-75 transition-all duration-200">
+                <img src="assets/perfil/Garota4.png" class="avatar-choice w-full rounded-full cursor-pointer hover:opacity-75 transition-all duration-200">
+                <img src="assets/perfil/Garoto1.png" class="avatar-choice w-full rounded-full cursor-pointer hover:opacity-75 transition-all duration-200">
+                <img src="assets/perfil/Garoto2.png" class="avatar-choice w-full rounded-full cursor-pointer hover:opacity-75 transition-all duration-200">
+                <img src="assets/perfil/Garoto3.png" class="avatar-choice w-full rounded-full cursor-pointer hover:opacity-75 transition-all duration-200">
+                <img src="assets/perfil/Garoto4.png" class="avatar-choice w-full rounded-full cursor-pointer hover:opacity-75 transition-all duration-200">
             </div>
             <div class="p-4 bg-gray-50 border-t border-gray-200 text-right">
                 <button id="save-avatar-btn" class="bg-gray-900 text-white py-2 px-5 rounded-lg font-semibold hover:bg-gray-800 transition duration-300">

@@ -13,7 +13,7 @@
     }
 
     .hero-bg-biblioteca {
-      background-image: linear-gradient(rgba(23, 31, 53, 0.7), rgba(14, 74, 165, 0.8)), url('img/biblioteca-banner.jpg');
+      background-image: linear-gradient(rgba(23, 31, 53, 0.7), rgba(14, 74, 165, 0.8)), url('assets/img/biblioteca-banner.jpg');
     }
   </style>
 </head>
@@ -26,7 +26,7 @@
       <div class="px-6 py-4 flex justify-between items-center">
         <div class="flex items-center gap-3">
           <div class="bg-blue-600 rounded-lg w-10 h-10 flex-shrink-0">
-            <img class="w-10 h-10 object-contain p-2" src="img/dove.png">
+            <img class="w-10 h-10 object-contain p-2" src="assets/img/dove.png">
           </div>
           <div>
             <h1 class="text-xl text-gray-800">Colégio Esperança</h1>
@@ -43,7 +43,7 @@
         <!-- Menu Mobile (Ícone) -->
         <div class="md:hidden">
           <button id="menu-toggle" class="text-gray-800">
-            <img class="w-11 h-11 object-contain p-2" src="img/toggle.png">
+            <img class="w-11 h-11 object-contain p-2" src="assets/img/toggle.png">
           </button>
         </div>
       </div>
@@ -78,7 +78,7 @@
           <div class="bg-white p-6 rounded-xl border border-gray-200">
             <div class="flex items-center gap-4">
               <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
-                <img class="w-6 h-6" src="img/hora.svg">
+                <img class="w-6 h-6" src="assets/img/hora.svg">
               </div>
               <div>
                 <h3 class="text-m font-semibold text-gray-900">Horário</h3>
@@ -92,7 +92,7 @@
           <div class="bg-white p-6 rounded-xl border border-gray-200">
             <div class="flex items-center gap-4">
               <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
-                <img class="w-6 h-6" src="img/local.svg">
+                <img class="w-6 h-6" src="assets/img/local.svg">
               </div>
               <div>
                 <h3 class="text-m font-semibold text-gray-900">Localização</h3>
@@ -106,7 +106,7 @@
           <div class="bg-white p-6 rounded-xl border border-gray-200">
             <div class="flex items-center gap-4">
               <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
-                <img class="w-6 h-6" src="img/book.svg">
+                <img class="w-6 h-6" src="assets/img/book.svg">
               </div>
               <div>
                 <h3 class="text-m font-semibold text-gray-900">Empréstimo</h3>
@@ -161,7 +161,7 @@
             <!-- Livro 1 -->
             <div class="bg-white rounded-xl border border-gray-200 p-6 text-left transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
               <div class="bg-gray-100 h-48 rounded-lg flex items-center justify-center">
-                <img src="img/domcasmurro.jpg" class="h-40 object-contain">
+                <img src="assets/img/domcasmurro.jpg" class="h-40 object-contain">
               </div>
               <h3 class="text-m font-semibold text-gray-900 mt-4">Dom Casmurro</h3>
               <p class="text-sm text-gray-500">Machado de Assis</p>
@@ -170,7 +170,7 @@
             <!-- Livro 2 -->
             <div class="bg-white rounded-xl border border-gray-200 p-6 text-left transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
               <div class="bg-gray-100 h-48 rounded-lg flex items-center justify-center">
-                <img src="img/sapiens.jpg" class="h-40 object-contain">
+                <img src="assets/img/sapiens.jpg" class="h-40 object-contain">
               </div>
               <h3 class="text-m font-semibold text-gray-900 mt-4">Sapiens</h3>
               <p class="text-sm text-gray-500">Yuval Noah Harari</p>
@@ -179,7 +179,7 @@
             <!-- Livro 3 -->
             <div class="bg-white rounded-xl border border-gray-200 p-6 text-left transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
               <div class="bg-gray-100 h-48 rounded-lg flex items-center justify-center">
-                <img src="img/cosmos.jpg" class="h-40 object-contain">
+                <img src="assets/img/cosmos.jpg" class="h-40 object-contain">
               </div>
               <h3 class="text-m font-semibold text-gray-900 mt-4">Cosmos</h3>
               <p class="text-sm text-gray-500">Carl Sagan</p>
@@ -188,7 +188,7 @@
             <!-- Livro 4 -->
             <div class="bg-white rounded-xl border border-gray-200 p-6 text-left transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
               <div class="bg-gray-100 h-48 rounded-lg flex items-center justify-center">
-                <img src="img/pequenoprincipe.jpg" class="h-40 object-contain">
+                <img src="assets/img/pequenoprincipe.jpg" class="h-40 object-contain">
               </div>
               <h3 class="text-m font-semibold text-gray-900 mt-4">O Pequeno Príncipe</h3>
               <p class="text-sm text-gray-500">Antoine de Saint-Exupéry</p>

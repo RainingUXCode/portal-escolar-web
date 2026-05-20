@@ -1,12 +1,21 @@
 <?php
-require_once 'includes/conexao.php';
+require_once 'app/includes/conexao.php';
+require_once 'app/includes/funcoes.php';
+
+$noticias_fixas = obter_noticias_fixas();
 
 $sql_noticias = "SELECT id, titulo, autor, conteudo, imagem_url, data_publicacao FROM noticias ORDER BY data_publicacao DESC";
 $result_noticias = $conn->query($sql_noticias);
 $noticias = [];
 if ($result_noticias) {
   while ($row = $result_noticias->fetch_assoc()) {
-    $noticias[] = $row;
+    $noticias[] = [
+      'titulo' => $row['titulo'],
+      'autor' => $row['autor'],
+      'conteudo' => mb_strlen($row['conteudo']) > 220 ? mb_substr($row['conteudo'], 0, 220) . '...' : $row['conteudo'],
+      'imagem_url' => $row['imagem_url'],
+      'data' => formatar_data_ptbr($row['data_publicacao']),
+    ];
   }
 }
 
@@ -36,7 +45,7 @@ function formatar_data_ptbr($data)
     }
 
     .hero-bg-noticias {
-      background-image: linear-gradient(rgba(23, 31, 53, 0.7), rgba(14, 74, 165, 0.8)), url('img/noticias-banner.jpg');
+      background-image: linear-gradient(rgba(23, 31, 53, 0.7), rgba(14, 74, 165, 0.8)), url('assets/img/noticias-banner.jpg');
     }
   </style>
 </head>
@@ -51,7 +60,7 @@ function formatar_data_ptbr($data)
         <!-- Logo e Nome da Escola -->
         <div class="flex items-center gap-3">
           <div class="bg-blue-600 rounded-lg w-10 h-10 flex-shrink-0">
-            <img class="w-10 h-10 object-contain p-2" src="img/dove.png">
+            <img class="w-10 h-10 object-contain p-2" src="assets/img/dove.png">
             </svg>
           </div>
           <div>
@@ -69,7 +78,7 @@ function formatar_data_ptbr($data)
         <!-- Menu Mobile (Ícone) -->
         <div class="md:hidden">
           <button id="menu-toggle" class="text-gray-800">
-            <img class="w-11 h-11 object-contain p-2" src="img/toggle.png">
+            <img class="w-11 h-11 object-contain p-2" src="assets/img/toggle.png">
           </button>
         </div>
       </div>
@@ -103,37 +112,17 @@ function formatar_data_ptbr($data)
           <p class="mt-4 text-lg text-gray-600">Marque no calendário o próximo evento!</p>
         </div>
 
-        <!-- Tábua de Notícias -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-16 max-w-6xl mx-auto">
-          <?php if (!empty($noticias)): ?>
-            <?php foreach ($noticias as $noticia): ?>
-              <div class="bg-white rounded-xl border border-gray-200 shadow-lg overflow-hidden flex flex-col transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
-                <?php if (!empty($noticia['imagem_url'])): ?>
-                  <img class="w-full h-64 object-cover" src="<?php echo htmlspecialchars($noticia['imagem_url']); ?>" alt="<?php echo htmlspecialchars($noticia['titulo']); ?>">
-                <?php else: ?>
-                  <div class="w-full h-64 bg-gray-100 flex items-center justify-center text-gray-500">Sem imagem</div>
-                <?php endif; ?>
-                <div class="p-6 flex flex-col flex-grow">
-                  <h3 class="text-xl text-gray-900"><?php echo htmlspecialchars($noticia['titulo']); ?></h3>
-                  <div class="flex gap-4 text-sm text-gray-500 mt-2">
-                    <span class="flex items-center gap-1.5">
-                      <img class="w-4 h-4" src="img/calendar.svg">
-                      <?php echo formatar_data_ptbr($noticia['data_publicacao']); ?>
-                    </span>
-                    <span class="flex items-center gap-1.5">
-                      <img class="w-4 h-4" src="img/pessoa.svg">
-                      <?php echo htmlspecialchars($noticia['autor']); ?>
-                    </span>
-                  </div>
-                  <p class="mt-4 text-gray-600 flex-grow"><?php echo nl2br(htmlspecialchars(mb_strlen($noticia['conteudo']) > 220 ? mb_substr($noticia['conteudo'], 0, 220) . '...' : $noticia['conteudo'])); ?></p>
-                </div>
-              </div>
-            <?php endforeach; ?>
-          <?php else: ?>
+          <?php
+          $todas_noticias = array_merge($noticias_fixas, $noticias);
+          if (!empty($todas_noticias)) {
+            echo render_noticias_cards($todas_noticias);
+          } else {
+          ?>
             <div class="col-span-1 md:col-span-2 bg-white rounded-xl border border-gray-200 shadow-lg p-6 text-gray-600 text-center">
               Nenhuma notícia encontrada no momento.
             </div>
-          <?php endif; ?>
+          <?php } ?>
         </div>
       </div>
     </section>

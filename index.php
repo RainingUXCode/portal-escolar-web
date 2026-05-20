@@ -16,7 +16,9 @@
     }
 
     .hero-bg-image {
-      background-image: linear-gradient(rgba(23, 31, 53, 0.7), rgba(14, 74, 165, 0.8)), url('img/escola-banner.jpg');
+      background-image: linear-gradient(rgba(23, 31, 53, 0.7), rgba(14, 74, 165, 0.8)), url('./assets/img/escola-banner.jpg');
+      background-position: center;
+      background-repeat: no-repeat;
     }
   </style>
 </head>
@@ -29,7 +31,7 @@
       <div class="px-6 py-4 flex justify-between items-center">
         <div class="flex items-center gap-3">
           <div class="bg-blue-600 rounded-lg w-10 h-10 flex-shrink-0">
-            <img class="w-10 h-10 object-contain p-2" src="img/dove.png">
+            <img class="w-10 h-10 object-contain p-2" src="assets/img/dove.png">
           </div>
           <div>
             <h1 class="text-xl font-regular text-gray-800">Colégio Esperança</h1>
@@ -46,7 +48,7 @@
         <!-- Menu Mobile (Ícone) -->
         <div class="md:hidden">
           <button id="menu-toggle" class="text-gray-800">
-            <img class="w-11 h-11 object-contain p-2" src="img/toggle.png">
+            <img class="w-11 h-11 object-contain p-2" src="assets/img/toggle.png">
           </button>
         </div>
       </div>
@@ -88,7 +90,7 @@
           <!-- Card 1 -->
           <div class="bg-white p-6 rounded-xl border border-gray-200 text-center">
             <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto">
-              <img class="w-8 h-8 object-contain" src="img/alunos.svg">
+              <img class="w-8 h-8 object-contain" src="assets/img/alunos.svg">
             </div>
             <p class="text-2xl text-gray-900 mt-4">1.200+</p>
             <p class="text-gray-500">Alunos Ativos</p>
@@ -96,7 +98,7 @@
           <!-- Card 2 -->
           <div class="bg-white p-6 rounded-xl border border-gray-200 text-center">
             <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto">
-              <img class="w-8 h-8 object-contain" src="img/professores.svg">
+              <img class="w-8 h-8 object-contain" src="assets/img/professores.svg">
             </div>
             <p class="text-2xl text-gray-900 mt-4">80+</p>
             <p class="text-gray-500">Professores Qualificados</p>
@@ -104,7 +106,7 @@
           <!-- Card 3 -->
           <div class="bg-white p-6 rounded-xl border border-gray-200 text-center">
             <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto">
-              <img class="w-8 h-8 object-contain" src="img/livro.svg">
+              <img class="w-8 h-8 object-contain" src="assets/img/livro.svg">
             </div>
             <p class="text-2xl text-gray-900 mt-4">15.000+</p>
             <p class="text-gray-500">Livros na Biblioteca</p>
@@ -112,7 +114,7 @@
           <!-- Card 4 -->
           <div class="bg-white p-6 rounded-xl border border-gray-200 text-center">
             <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto">
-              <img class="w-8 h-8 object-contain" src="img/enem.svg">
+              <img class="w-8 h-8 object-contain" src="assets/img/enem.svg">
             </div>
             <p class="text-2xl text-gray-900 mt-4">95%</p>
             <p class="text-gray-500">Aprovação no ENEM</p>
@@ -149,7 +151,7 @@
             <!-- Endereço -->
             <div class="flex gap-4">
               <div class="w-8 h-8 flex-shrink-0">
-                <img class="w-6 h-6 object-contain" src="img/pin-map.png">
+                <img class="w-6 h-6 object-contain" src="assets/img/pin-map.png">
               </div>
               <div>
                 <h4 class="font-bold text-gray-800">Endereço</h4>
@@ -160,8 +162,7 @@
             <!-- Contato -->
             <div class="flex gap-4">
               <div class="w-8 h-8 flex-shrink-0">
-                <img class="w-7 h-7 object-contain" src="img/telephone.png">
-                </svg>
+                <img class="w-7 h-7 object-contain" src="assets/img/telephone.png">
               </div>
               <div>
                 <h4 class="font-bold text-gray-800">Contato</h4>

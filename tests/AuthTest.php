@@ -33,7 +33,7 @@ class AuthTest extends \BaseTestCase
 
   private function createTestUser(string $email, string $senha): int
   {
-    require __DIR__ . '/../includes/conexao.php';
+    require __DIR__ . '/../app/includes/conexao.php';
     $nome = $conn->real_escape_string('Teste Automacao');
     $emailEsc = $conn->real_escape_string($email);
     $senhaEsc = $conn->real_escape_string($senha);
@@ -52,35 +52,35 @@ class AuthTest extends \BaseTestCase
 
   public function testLoginValid(): void
   {
-    $res = $this->httpPost('processa/processa_login.php', ['email' => $this->testEmail, 'senha' => $this->testPass]);
+    $res = $this->httpPost('app/processa/processa_login.php', ['email' => $this->testEmail, 'senha' => $this->testPass]);
     self::assertSame(200, $res['status']);
     self::assertStringContainsString('Olá, bem-vindo', $res['body']);
   }
 
   public function testLoginInvalid(): void
   {
-    $res = $this->httpPost('processa/processa_login.php', ['email' => 'no-such-user@escola.com', 'senha' => 'x']);
+    $res = $this->httpPost('app/processa/processa_login.php', ['email' => 'no-such-user@escola.com', 'senha' => 'x']);
     self::assertSame(200, $res['status']);
     self::assertStringContainsString('Login falhou', $res['body']);
   }
 
   public function testIncorrectPassword(): void
   {
-    $res = $this->httpPost('processa/processa_login.php', ['email' => $this->testEmail, 'senha' => 'wrongpass']);
+    $res = $this->httpPost('app/processa/processa_login.php', ['email' => $this->testEmail, 'senha' => 'wrongpass']);
     self::assertSame(200, $res['status']);
     self::assertStringContainsString('Login falhou', $res['body']);
   }
 
   public function testEmailInvalidFormat(): void
   {
-    $res = $this->httpPost('processa/processa_login.php', ['email' => 'not-an-email', 'senha' => 'whatever']);
+    $res = $this->httpPost('app/processa/processa_login.php', ['email' => 'not-an-email', 'senha' => 'whatever']);
     self::assertSame(200, $res['status']);
     self::assertStringContainsString('Login falhou', $res['body']);
   }
 
   public function testEmailWithoutEscolaDomain(): void
   {
-    $res = $this->httpPost('processa/processa_login.php', ['email' => 'user@otherdomain.com', 'senha' => 'whatever']);
+    $res = $this->httpPost('app/processa/processa_login.php', ['email' => 'user@otherdomain.com', 'senha' => 'whatever']);
     self::assertSame(200, $res['status']);
     self::assertStringContainsString('Login falhou', $res['body']);
   }
@@ -88,7 +88,7 @@ class AuthTest extends \BaseTestCase
   public function testAuthenticatedSessionAllowsAccess(): void
   {
     // login
-    $this->httpPost('processa/processa_login.php', ['email' => $this->testEmail, 'senha' => $this->testPass]);
+    $this->httpPost('app/processa/processa_login.php', ['email' => $this->testEmail, 'senha' => $this->testPass]);
     // access protected page
     $res = $this->httpGet('area_aluno.php');
     self::assertSame(200, $res['status']);

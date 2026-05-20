@@ -1,6 +1,6 @@
 <?php
-require_once 'includes/funcoes.php';
-require_once 'includes/conexao.php';
+require_once 'app/includes/funcoes.php';
+require_once 'app/includes/conexao.php';
 
 proteger_pagina(['admin']);
 
@@ -71,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       redirecionar('painel_admin.php', 'erro', 'Título, autor e conteúdo são obrigatórios.');
     }
 
-    $uploadDir = __DIR__ . '/img/noticias';
+    $uploadDir = __DIR__ . '/assets/img/noticias';
     if (!is_dir($uploadDir)) {
       mkdir($uploadDir, 0755, true);
     }
@@ -101,7 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         redirecionar('painel_admin.php', 'erro', 'Erro ao salvar a imagem enviada.');
       }
 
-      $imagem_url = 'img/noticias/' . $fileName;
+      $imagem_url = 'assets/img/noticias/' . $fileName;
     }
 
     $stmt = $conn->prepare("INSERT INTO noticias (titulo, conteudo, autor, imagem_url) VALUES (?, ?, ?, ?)");
@@ -133,11 +133,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   }
 }
 
-$sql_alunos = "SELECT id, nome, email, matricula, data_nascimento, endereco FROM usuarios WHERE nivel_acesso = 'aluno' ORDER BY nome ASC";
+$sql_alunos = "SELECT id, nome, email, matricula, data_nascimento, endereco FROM usuarios WHERE nivel_acesso = 'aluno' AND NOT (email LIKE 'perf%@escola.com' OR email LIKE 'test_%@escola.com' OR email LIKE 'teste%@escola.com' OR nome LIKE '%Teste%' OR nome LIKE 'Perf Test%') ORDER BY nome ASC";
 $result_alunos = $conn->query($sql_alunos);
 
 // CONTAGEM TOTAL DE ALUNOS
-$sql_count = "SELECT COUNT(*) AS total_alunos FROM usuarios WHERE nivel_acesso = 'aluno'";
+$sql_count = "SELECT COUNT(*) AS total_alunos FROM usuarios WHERE nivel_acesso = 'aluno' AND NOT (email LIKE 'perf%@escola.com' OR email LIKE 'test_%@escola.com' OR email LIKE 'teste%@escola.com' OR nome LIKE '%Teste%' OR nome LIKE 'Perf Test%')";
 $result_count = $conn->query($sql_count);
 $total_alunos = $result_count->fetch_assoc()['total_alunos'];
 
@@ -183,7 +183,7 @@ $tem_alunos = $total_alunos > 0;
   <div class="w-full max-w-5xl">
     <!-- Botão Voltar -->
     <a href="area_admin.php" class="inline-flex items-center gap-3 text-sm font-semibold text-gray-700 hover:text-gray-900 mb-4 bg-white backdrop-blur-sm px-3 py-2 rounded-lg border border-gray-200">
-      <img class="w-4 h-4" src="img/voltar.svg">
+      <img class="w-4 h-4" src="assets/img/voltar.svg">
       Voltar
     </a>
 
@@ -194,7 +194,7 @@ $tem_alunos = $total_alunos > 0;
       <div class="flex flex-row items-center gap-4 mb-6">
         <!-- Avatar -->
         <div class="w-14 h-14 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0">
-          <img src="perfil/Adm.png" alt="Avatar Admin" class="w-full h-full object-cover rounded-full">
+          <img src="assets/perfil/Adm.png" alt="Avatar Admin" class="w-full h-full object-cover rounded-full">
         </div>
         <!-- Título e Subtítulo -->
         <div>
@@ -207,17 +207,17 @@ $tem_alunos = $total_alunos > 0;
       <nav class="flex space-x-2 bg-gray-100 p-1.5 rounded-lg mb-6">
         <!-- Aba Notícias -->
         <button data-tab-toggle="noticias" class="tab-button flex-1 text-sm font-semibold text-gray-900 bg-white shadow-sm rounded-md py-2 px-4 text-center inline-flex items-center justify-center gap-2">
-          <img class="w-4 h-4" src="img/noticia.svg">
+          <img class="w-4 h-4" src="assets/img/noticia.svg">
           Notícias
         </button>
         <!-- Aba Enquetes -->
         <button data-tab-toggle="enquetes" class="tab-button flex-1 text-sm font-semibold text-gray-600 hover:bg-gray-200 rounded-md py-2 px-4 text-center inline-flex items-center justify-center gap-2">
-          <img class="w-4 h-4" src="img/enquete-black.svg">
+          <img class="w-4 h-4" src="assets/img/enquete-black.svg">
           Enquetes
         </button>
         <!-- Aba Alunos -->
         <button data-tab-toggle="alunos" class="tab-button flex-1 text-sm font-semibold text-gray-600 hover:bg-gray-200 rounded-md py-2 px-4 text-center inline-flex items-center justify-center gap-2">
-          <img class="w-4 h-4" src="img/alunos-black.svg">
+          <img class="w-4 h-4" src="assets/img/alunos-black.svg">
           Alunos
         </button>
       </nav>
@@ -277,7 +277,7 @@ $tem_alunos = $total_alunos > 0;
                     <input type="hidden" name="action" value="excluir_noticia">
                     <input type="hidden" name="noticia_id" value="<?php echo (int) $noticia['id']; ?>">
                     <button type="submit" class="delete-noticia-btn bg-red-500 text-red-700 hover:bg-red-400 p-2 rounded-lg transition-colors">
-                      <img class="w-5 h-5" src="img/lixo.svg" alt="Excluir">
+                      <img class="w-5 h-5" src="assets/img/lixo.svg" alt="Excluir">
                     </button>
                   </form>
                 </div>
@@ -317,7 +317,7 @@ $tem_alunos = $total_alunos > 0;
 
             <!-- Botão Adicionar Opção -->
             <button type="button" id="add-opcao-btn" class="text-sm font-medium text-blue-600 hover:text-blue-800 flex items-center gap-1">
-              <img class="w-3 h-3" src="img/mais.png">
+              <img class="w-3 h-3" src="assets/img/mais.png">
               Adicionar Opção
             </button>
 
@@ -359,7 +359,7 @@ $tem_alunos = $total_alunos > 0;
                     <input type="hidden" name="action" value="excluir_enquete">
                     <input type="hidden" name="enquete_id" value="<?php echo (int) $enquete['id']; ?>">
                     <button type="submit" class="bg-red-500 text-red-700 hover:bg-red-400 p-2 rounded-lg transition-colors">
-                      <img class="w-5 h-5" src="img/lixo.svg" alt="Excluir">
+                      <img class="w-5 h-5" src="assets/img/lixo.svg" alt="Excluir">
                     </button>
                   </form>
                 </div>

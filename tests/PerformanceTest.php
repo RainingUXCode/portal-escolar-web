@@ -15,8 +15,8 @@ class PerformanceTest extends \BaseTestCase
       ['method' => 'GET', 'path' => 'area_aluno.php'],
       ['method' => 'GET', 'path' => 'painel_admin.php'],
       // lightweight POSTs for processa endpoints (measure time, not correctness)
-      ['method' => 'POST', 'path' => 'processa/processa_login.php', 'data' => ['email' => 'admin@escola.com', 'senha' => 'admin123']],
-      ['method' => 'POST', 'path' => 'processa/processa_cadastro.php', 'data' => ['nome' => 'Perf Test', 'email' => 'perf' . time() . '@escola.com', 'matricula' => (string)time(), 'data_nascimento' => '2000-01-01', 'endereco' => 'Rua', 'senha' => '123456']]
+      ['method' => 'POST', 'path' => 'app/processa/processa_login.php', 'data' => ['email' => 'admin@escola.com', 'senha' => 'admin123']],
+      ['method' => 'POST', 'path' => 'app/processa/processa_cadastro.php', 'data' => ['nome' => 'Perf Test', 'email' => 'perf' . time() . '@escola.com', 'matricula' => (string)time(), 'data_nascimento' => '2000-01-01', 'endereco' => 'Rua', 'senha' => '123456']]
     ];
 
     $thresholdMs = 3000; // 3 seconds
@@ -59,3 +59,4 @@ class PerformanceTest extends \BaseTestCase
     }
   }
 }
+

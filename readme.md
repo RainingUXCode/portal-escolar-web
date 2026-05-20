@@ -1,57 +1,251 @@
-# 🏫 Projeto Acadêmico: Colégio Esperança - Portal Estudantil
+# Portal Esperança
 
-Este projeto é desenvolvido como parte das aulas de **Programação Web** e simula um portal web para uma instituição de ensino fictícia, permitindo a **autenticação** de alunos, administradores e participação em **enquetes** com resultados em tempo real.
-
-O foco deste projeto é demonstrar a lógica básica de back-end, interação com banco de dados e controle de acesso via sessões.
+Portal Escolar simples desenvolvido em PHP com autenticação, gerenciamento de notícias, enquetes e área de aluno.
 
 ---
 
-## ✨ Funcionalidades Principais
+# 📌 Visão Geral
 
-- **Sistema de Autenticação:** Login e Cadastro de novos estudantes (`usuarios`).
-- **Controle de Acesso:** Separação entre a área do aluno (`area_aluno.php`) e a área do administrador (`area_admin.php`) usando o campo `nivel_acesso` da tabela `usuarios`.
-- **Gestão de Enquetes:**
-  - **Voto Único:** Impede que o mesmo aluno vote mais de uma vez na mesma enquete (`processa_voto.php`).
-  - **Resultados em Tempo Real:** Cálculo dinâmico da contagem e porcentagem dos votos usando consultas SQL de agregação (`COUNT` e `GROUP BY`).
-- **Visualização de Alunos:** O administrador pode visualizar a lista completa de estudantes matriculados (`painel_admin.php`).
+Este projeto simula um portal escolar para alunos e administradores. Ele inclui:
 
----
-
-## 🛠️ Tecnologias Utilizadas
-
-| Componente         | Tecnologia                     | Observações                                        |
-| :----------------- | :----------------------------- | :------------------------------------------------- |
-| **Backend**        | PHP 7+ (Procedural)            | Lógica de servidor e processamento de dados.       |
-| **Banco de Dados** | MySQL                          | Armazenamento de usuários, enquetes e votos.       |
-| **Driver de BD**   | MySQLi (Extensão Nativa)       | Conexão simples e direta com o banco de dados.     |
-| **Frontend**       | HTML5 / Tailwind CSS (CDN)     | Estrutura da página e estilos visuais responsivos. |
-| **Servidor**       | Apache HTTP Server (via XAMPP) | Ambiente local de execução.                        |
+- Login e controle de acesso por perfil
+- Área administrativa para criação de notícias e enquetes
+- Área do aluno com perfil e acesso a conteúdos institucionais
+- Banco de dados MySQL/MariaDB
+- Testes automatizados com PHPUnit e Playwright
 
 ---
 
-## ⚙️ Configuração e Instalação (Passo a Passo)
+# ⚙️ Tecnologias
 
-Para executar o projeto em seu ambiente local, siga as instruções abaixo:
+- PHP
+- MySQL / MariaDB
+- HTML5
+- Tailwind CSS
+- JavaScript
+- Playwright
+- PHPUnit
+- GitHub Actions
 
-### 1. Requisitos
+---
 
-- Servidor web com suporte a PHP e MySQL (Recomendado: **XAMPP**).
+# 📂 Estrutura do Projeto
 
-### 2. Configuração do Projeto
+```bash
+portal-simple/
+├── .github/
+│   └── workflows/ci.yml
+├── app/
+│   ├── includes/
+│   │   ├── conexao.php
+│   │   └── funcoes.php
+│   └── processa/
+│       ├── processa_cadastro.php
+│       ├── processa_login.php
+│       ├── processa_logout.php
+│       └── processa_voto.php
+├── assets/
+│   ├── img/
+│   └── perfil/
+├── db/
+│   └── projeto.sql
+├── docs/
+│   └── diagramas-uml-projetofinal.mdj
+├── tests/
+│   ├── *.php
+│   └── *.spec.js
+├── area_admin.php
+├── area_aluno.php
+├── biblioteca.php
+├── cadastro.php
+├── index.php
+├── login.php
+├── noticias.php
+├── painel_admin.php
+├── perfil_aluno.php
+├── package.json
+├── composer.json
+├── phpunit.xml
+├── run-tests.ps1
+└── readme.md
+```
 
-1.  **Copie ou Baixe:** Baixe todos os arquivos para a pasta de projetos do seu servidor (ex: `C:\xampp\htdocs\portal-escola`).
-2.  **Criação do Banco:**
-    - Acesse o phpMyAdmin (`http://localhost/phpmyadmin`).
-    - Crie um novo banco de dados chamado **`projeto`**.
-    - **Importe a Estrutura:** Crie as quatro tabelas essenciais: `usuarios`, `enquetes`, `opcoes_enquete`, e `votos`.
-3.  **Configuração de Conexão:**
-    - O arquivo de conexão `includes/conexao.php` está pré-configurado para o padrão do XAMPP (`user="root"`, `pass=""`). Se você usa senha no seu MySQL, ajuste este arquivo.
+---
 
-### 3. Acessos para Teste
+# 🚀 Como Executar Localmente
 
-Após a instalação, você pode acessar e testar as seguintes funcionalidades:
+## Requisitos
 
-| Nível de Acesso | Acesso Inicial                                                                                                                      | Credenciais de Exemplo                                    |
-| :-------------- | :---------------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------- |
-| **Aluno**       | `http://localhost/portal-simple/cadastro.php`                                                                                       | Crie um novo aluno pelo formulário.                       |
-| **Admin**       | **Necessário Inserção Manual:** Insira um registro na tabela `usuarios` com `email='admin@escola.com.br'` e `nivel_acesso='admin'`. | **E-mail:** `admin@escola.com.br` / **Senha:** `admin123` |
+- XAMPP ou ambiente PHP + Apache
+- MySQL/MariaDB
+- Node.js + npm (para testes Playwright)
+- Composer (para PHPUnit)
+
+## Passos
+
+1. Copie a pasta `portal-simple` para `C:\xampp\htdocs\`.
+2. Inicie o Apache e o MySQL no XAMPP.
+3. Crie e importe o banco de dados:
+   - Abra phpMyAdmin (`http://localhost/phpmyadmin`)
+   - Crie um novo banco chamado `projeto`
+   - Importe o arquivo `db/projeto.sql`
+4. Ajuste os dados de conexão em `app/includes/conexao.php` se necessário.
+5. Acesse no navegador:
+
+```text
+http://localhost/portal-simple/
+```
+
+---
+
+# 🗄️ Banco de Dados
+
+O arquivo `db/projeto.sql` contém o dump completo do banco com todas as tabelas e estrutura.
+
+Principais tabelas:
+
+- `usuarios` (alunos e administradores)
+- `noticias` (notícias institucionais)
+- `enquetes` (enquetes/votações)
+- `opcoes_enquete` (opções das enquetes)
+- `votos` (votos dos alunos)
+
+Para importar via MySQL CLI:
+
+```bash
+mysql -u root -p projeto < db/projeto.sql
+```
+
+---
+
+# 🔐 Funcionalidades
+
+## Autenticação
+
+- login para administrador
+- login para aluno
+- controle de sessão
+- páginas protegidas
+- logout
+
+## Área do Aluno
+
+- perfil do estudante
+- exibição de notícias e conteúdos institucionais
+
+## Área do Administrador
+
+- gerenciamento de notícias
+- criação e exclusão de enquetes
+- visão de alunos cadastrados
+
+---
+
+# 📊 Diagramas UML
+
+Os diagramas da arquitetura e fluxos do projeto estão em `docs/diagramas-uml-projetofinal.mdj` (formato StarUML).
+
+Para visualizar:
+
+- Abra em [StarUML](https://staruml.io/)
+- Inclui diagramas de sequência, atividades e estrutura do sistema
+
+---
+
+# 🧪 Testes
+
+## PHPUnit
+
+Use o script PowerShell:
+
+```powershell
+.
+un-tests.ps1
+```
+
+Ou execute diretamente:
+
+```bash
+composer install
+vendor/bin/phpunit -c phpunit.xml
+```
+
+## Playwright
+
+Instale as dependências e execute:
+
+```bash
+npm install
+npx playwright install
+npx playwright test
+```
+
+---
+
+# 💻 CI / GitHub Actions
+
+O repositório inclui um fluxo de CI em `.github/workflows/ci.yml` que executa:
+
+- testes PHPUnit
+- testes Playwright
+
+---
+
+# 📌 Notas
+
+- Arquivos de processamento de formulário ficam em `app/processa/`.
+- Configurações de conexão de banco estão em `app/includes/conexao.php`.
+- Recursos de imagem estão em `assets/img/` e `assets/perfil/`.
+
+```bash
+vendor/bin/phpunit
+```
+
+---
+
+# ☁️ Deploy
+
+O projeto pode ser hospedado em servidores compatíveis com PHP e MariaDB/MySQL.
+
+## Hospedagem utilizada
+
+- InfinityFree
+
+---
+
+# 🔒 Segurança e Qualidade
+
+- Autenticação via sessões PHP
+- Controle de acesso
+- Validação de formulários
+- Proteção de rotas administrativas
+- Testes automatizados
+- Integração contínua
+- Validação de emails institucionais
+
+---
+
+# 📌 Resultados Esperados
+
+- Centralização das informações escolares
+- Melhor gerenciamento acadêmico
+- Facilidade de acesso para alunos e administradores
+- Melhor organização institucional
+- Maior segurança no acesso ao sistema
+
+---
+
+# 🔮 Próximas Evoluções
+
+- API REST
+- Recuperação de senha
+- Dashboard avançado
+- Upload de arquivos
+- Melhorias de segurança
+- Notificações em tempo real
+
+---
+
+# 👨‍💻 Autor
+
+Projeto desenvolvido para fins acadêmicos e de aprendizado em desenvolvimento web, testes automatizados e integração contínua.
