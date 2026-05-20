@@ -1,7 +1,9 @@
 const { test, expect } = require("@playwright/test");
 
+const BASE_URL = process.env.BASE_URL || "http://localhost/portal-simple";
+
 test("Administrador consegue fazer login", async ({ page }) => {
-  await page.goto("http://localhost/portal-simple/login.php");
+  await page.goto(`${BASE_URL}/login.php`);
 
   await page.fill('input[name="email"]', "admin@escola.com");
 

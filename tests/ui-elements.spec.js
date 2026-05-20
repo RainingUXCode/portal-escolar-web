@@ -1,6 +1,6 @@
 const { test, expect } = require("@playwright/test");
 
-const BASE_URL = "http://localhost/portal-simple";
+const BASE_URL = process.env.BASE_URL || "http://localhost/portal-simple";
 const ADMIN_EMAIL = "admin@escola.com";
 const ADMIN_SENHA = "admin123";
 

@@ -1,7 +1,9 @@
 const { test, expect } = require("@playwright/test");
 
+const BASE_URL = process.env.BASE_URL || "http://localhost/portal-simple";
+
 test("Cadastro de usuário", async ({ page }) => {
-  await page.goto("http://localhost/portal-simple/cadastro.php");
+  await page.goto(`${BASE_URL}/cadastro.php`);
 
   await page.fill('input[name="nome"]', "Usuário Teste");
 
@@ -29,7 +31,7 @@ test("Aluno consegue se cadastrar e fazer login", async ({ page }) => {
 
   // CADASTRO
 
-  await page.goto("http://localhost/portal-simple/cadastro.php");
+  await page.goto(`${BASE_URL}/cadastro.php`);
 
   await page.fill('input[name="nome"]', "Aluno Teste");
 
@@ -49,7 +51,7 @@ test("Aluno consegue se cadastrar e fazer login", async ({ page }) => {
 
   // LOGIN
 
-  await page.goto("http://localhost/portal-simple/login.php");
+  await page.goto(`${BASE_URL}/login.php`);
 
   await page.fill('input[name="email"]', email);
 
