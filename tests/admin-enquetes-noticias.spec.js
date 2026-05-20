@@ -171,4 +171,3 @@ test.describe.serial("Admin painel e enquetes", () => {
     await deletePoll(page, enquetePergunta);
   });
 });
-
